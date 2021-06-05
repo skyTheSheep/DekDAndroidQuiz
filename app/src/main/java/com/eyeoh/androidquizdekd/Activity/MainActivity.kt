@@ -56,8 +56,14 @@ class MainActivity : AppCompatActivity(), MixRecyclerViewAdapter.OnRecyclerItemC
 
         btn_sorting.setOnClickListener {
             when(mode) {
-                NO_SORT -> getList(true)
-                SORT_BY_DATE_DESC -> getSortedList(true)
+                NO_SORT -> {
+                    getSortedList(true)
+                    mode = SORT_BY_DATE_DESC
+                }
+                SORT_BY_DATE_DESC -> {
+                    getList(true)
+                    mode = NO_SORT
+                }
             }
         }
     }
