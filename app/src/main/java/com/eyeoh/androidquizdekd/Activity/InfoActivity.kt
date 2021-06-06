@@ -43,7 +43,6 @@ class InfoActivity : AppCompatActivity() {
 
         Glide.with(this)
                 .load(info.image_url.cover_image)
-                .fitCenter()
                 .placeholder(R.drawable.image_test)
                 .into(imageInfo)
 

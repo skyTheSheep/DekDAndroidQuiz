@@ -73,7 +73,6 @@ class MixRecyclerViewAdapter(val context: Context,val bannerList: ArrayList<Bann
 
                 Glide.with(context)
                         .load(infoData.image_url.thumb)
-                        .fitCenter()
                         .placeholder(R.drawable.image_test)
                         .into(image_info)
 

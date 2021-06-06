@@ -39,7 +39,6 @@ class BannerRecyclerViewAdapter(val context: Context, val list: List<BannerDao>)
             Glide.with(context)
                 .load(data.imageUrl)
 //                        + "?rand=" + System.currentTimeMillis().toString())
-                .fitCenter()
                 .placeholder(R.drawable.image_test)
                 .into(imageBanner)
         }
