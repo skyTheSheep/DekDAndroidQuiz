@@ -83,7 +83,15 @@ class MainActivity : AppCompatActivity(), MixRecyclerViewAdapter.OnRecyclerItemC
 
             override fun loadMoreItems() {
                 progressbar.visibility = View.VISIBLE
-                getList(false, totalPageCount + 1)
+//                getList(false, totalPageCount + 1)
+                when(mode) {
+                    NO_SORT -> {
+                        getList(false, totalPageCount + 1)
+                    }
+                    SORT_BY_DATE_DESC -> {
+                        getSortedList(false, totalPageCount + 1)
+                    }
+                }
             }
 
         })
@@ -221,7 +229,7 @@ class MainActivity : AppCompatActivity(), MixRecyclerViewAdapter.OnRecyclerItemC
         })
     }
 
-    private fun getSortedList(isReset: Boolean = false) {
+    private fun getSortedList(isReset: Boolean = false, page: Int = 1) {
 
         if (isLoadingAPI) {
             return
@@ -233,7 +241,7 @@ class MainActivity : AppCompatActivity(), MixRecyclerViewAdapter.OnRecyclerItemC
             showProgressDialog()
         }
 
-        HttpManager.service.getsortedList("createdAt","desc",1,20).enqueue(object : Callback<ResponseBody> {
+        HttpManager.service.getsortedList("createdAt","desc",page,20).enqueue(object : Callback<ResponseBody> {
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (isReset) {
                     dismissProgressDialog()
@@ -270,6 +278,8 @@ class MainActivity : AppCompatActivity(), MixRecyclerViewAdapter.OnRecyclerItemC
                         }
 
                         rv_info_items.adapter?.notifyDataSetChanged()
+
+                        progressbar.visibility = View.GONE
 
                     } else {
                         Log.e("checkApi","getList: Connection response is not success : ${response.message()}")
